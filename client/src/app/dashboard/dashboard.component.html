@@ -1,0 +1,49 @@
+<div class="header">
+  <ul>
+    <li>Bucket List</li>
+    <li><button [routerLink]="['/', 'dashboard']">Home</button></li>
+    <li><button (click)="logout()">Logout</button></li>
+  </ul>
+</div>
+<h2>Welcome, {{ active_user.name }}!</h2>
+<form #formData="ngForm" (submit)="onSubmit()">
+  <input 
+    type="text"
+    name="title"
+    required
+    minlength="5"
+    [(ngModel)]="new_item.title"
+    #title="ngModel"
+    placeholder="Title"
+  >
+  <input 
+    type="text"
+    name="description"
+    required
+    minlength="10"
+    [(ngModel)]="new_item.description"
+    #description="ngModel"
+    placeholder="Description"
+  >
+  <select
+    name="tagged"
+    [(ngModel)]="new_item.tagged"
+    #tagged="ngModel"
+  >
+    <option *ngFor="let user of all_users" value="{{user._id}}">
+      {{user.name}}
+    </option>
+  </select>
+  <button
+    type="submit"
+    [disabled]="!formData.valid"
+  >
+    Add to List
+  </button>
+  <small class="error" [hidden]="title.untouched || title.valid">Title required (min length 5 characters)</small>
+  <small class="error" [hidden]="description.untouched || description.valid">Description required (min length 10 characters)</small>
+</form>
+<p>Before I die I want to:</p>
+<p *ngFor="let item of active_user.items"><img *ngIf="item.checked" src="assets/checked_checkbox.png" alt="checked" (click)="flip(item._id)"><img *ngIf="!item.checked" src="assets/unchecked_checkbox.png" alt="unchecked" (click)="flip(item._id)"> {{ item.creator }} | {{ item.title }} - {{ item.description }} - {{ item.createdAt | date:medium }}</p>
+<p>Other Users (click to view profile):</p>
+<p *ngFor="let user of all_users"><a [routerLink]="['/', 'user', user._id]">{{ user.name }}</a></p>

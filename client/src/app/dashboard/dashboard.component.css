@@ -1,0 +1,15 @@
+ul {
+    list-style-type: none;
+    border: 1px solid black;
+}
+ul li {
+    display: inline-block;
+    padding: .5em;
+}
+.error {
+    color: red;
+}
+img {
+    height: 1em;
+    width: 1em;
+}

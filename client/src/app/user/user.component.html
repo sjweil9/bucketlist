@@ -1,0 +1,12 @@
+<div class="header">
+    <ul>
+      <li>Bucket List</li>
+      <li><button [routerLink]="['/', 'dashboard']">Home</button></li>
+      <li><button (click)="logout()">Logout</button></li>
+    </ul>
+</div>
+<h1>{{ user.name }}'s Bucket List</h1>
+<h4>Done</h4>
+<p *ngFor="let item of complete"><img src="assets/checked_checkbox.png" alt="checked" (click)="flip(item._id)"> {{ item.creator }} | {{ item.title }} - {{ item.description }} - {{ item.createdAt | date:medium }}</p>
+<h4>Pending</h4>
+<p *ngFor="let item of pending"><img src="assets/unchecked_checkbox.png" alt="unchecked" (click)="flip(item._id)"> {{ item.creator }} | {{ item.title }} - {{ item.description }} - {{ item.createdAt | date:medium }}</p>
